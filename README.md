@@ -3,7 +3,7 @@
 ## **Topic**
   - Our topic is about beer!
 
-## **REason**
+## **Reason**
   - We chose our topic due to everyone loving beer!
 
 ## **Description of data source**
