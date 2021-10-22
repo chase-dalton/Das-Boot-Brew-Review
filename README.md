@@ -1,7 +1,7 @@
 # Das Boot Brew Review
 
 ## **Topic**
-  - Our topic is about beer!
+  - Our topic is about beer! We want to know what factors contribute to the best glass of beer.
 
 ## **Reason**
   - We chose our topic due to everyone loving beer!
@@ -12,4 +12,4 @@
 
 ## **Questions we hope to answer**
 
-  - We want to konw what goes into making the perfect beer? What has the highest weight for someone to like a beer based on look, taste, mouthfeel, and smell?
+  - We want to know what goes into making the perfect beer? What has the highest weight for someone to like a beer based on factors such as look, taste, mouthfeel, alcohol content, bitterness, and smell?
