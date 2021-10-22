@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body class="bg-dark">
+    <!-- <div class="wrapper">
+        <nav class="navbar navbar-dark bg -dark navbar-expand-lg">
+            <a class="navbar-brand" href="index.html">UFO Sightings</a>
+        </nav>
+    </div> -->
+    <div class="jumbotron">
+        <h1 class="display-1">Tasty Beer Website</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>What Makes Beer Good?</h3>
+            </div>
+            
+            <div class="col-md-8 offset-md-2">
+                <p>
+                    <br>
+                    <br>
+                    What makes a beer enjoyable? Well for most people, it's if the beer tastes good or not. But from a brewing or sales perspective, that's not very helpful.
+                    "This beer is good!" is incredibly subjective. There are many components that go into a beer. How much alcohol is in it? What type is it? Where 
+                    was it brewed? What aroma notes are there? How bitter is it? What type of yeast was used? Does smell matter more than mouthfeel? Our analysis takes
+                    these factors and more into account. By analyzing various data sources, we were able to determine what factors best predict beer enjoyment.
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <form class="bg-dark">
+                    <p>Filter Search</p>
+                    <ul class="list-group bg-dark">
+                        <li class="list-group-item bg-dark">
+                            <label for="date">Enter Beer</label><br>
+                            <input type="text" placeholder="Bud Light" id="beer" />
+                        </li>
+                        <li class = "list-group-item bg-dark">
+                            <label for="city">Enter Brewery</label><br>
+                              <input type="text" placeholder="Anheuser-Busch" id="brewery" />
+                          </li>
+                          <li class = "list-group-item bg-dark">
+                            <label for="state">Enter State</label><br>
+                              <input type="text" placeholder="CO" id= "state" />
+                          </li>
+                          <li class = "list-group-item bg-dark">
+                            <label for="country">Enter Style</label><br>
+                              <input type="text" placeholder="IPA" id="style" />
+                          </li>
+                          <li class = "list-group-item bg-dark">
+                            <label for="shape">Enter Overall Rating</label><br>
+                              <input type="text" placeholder="4.5" id="rating" />
+                          </li><br>
+                    </ul>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Beer</th>
+                            <th>Brewery</th>
+                            <th>State</th>
+                            <th>Style</th>
+                            <th>Overall Rating</th>
+                            <th>Taste</th>
+                            <th>Smell</th>
+                            <th>Mouthfeel</th>
+                            <th>Appearance</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+    <script src="static/js/data.js"></script>
+    <script src="static/js/app.js"></script>
+</body>
+
+</html>
