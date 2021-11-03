@@ -34,8 +34,8 @@ def awsDB(sql_query):
 
 def createJSON(data, headers):
     jsonData=[]
-    for result in data:
-        jsonData.append(dict(zip(headers,result)))
+    for rec in data:
+        jsonData.append(dict(zip(headers,rec)))
     return json.dumps(jsonData)
 
 app = Flask(__name__)
@@ -52,7 +52,8 @@ def index():
                 '''
     # run query
     results = awsDB(sql_query)
-    jsonData = createJSON(results[1], results[0])
+    # convert query results to json
+    jsonData = createJSON(results[0], results[1])
 
     return render_template('index.html', data=jsonData)
 
