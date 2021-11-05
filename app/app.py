@@ -18,14 +18,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/testBeerRecipe')
 def testBeerRecipe():
 
     # result = recipeRater(test_recipe)
     # print result to a textbox
-    return render_template('index.html')
+    return render_template('visuals.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
