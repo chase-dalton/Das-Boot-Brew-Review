@@ -5,10 +5,11 @@ import numpy as np
 import os
 import psycopg2
 import json
+from config import sql_host, sql_pw, sql_u
 
-sql_u = os.environ.get("sql_user", None)
-sql_pw = os.environ.get("sql_pw", None)
-sql_host = os.environ.get("sql_host", None)
+# sql_u = os.environ.get("sql_user", None)
+# sql_pw = os.environ.get("sql_pw", None)
+# sql_host = os.environ.get("sql_host", None)
 
 def awsDB(sql_query):
     # connect to DB
