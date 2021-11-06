@@ -1,3 +1,6 @@
+var userInput = document.getElementById('review_taste').innerText
+// var beerData = fetch(`http://127.0.0.1:5000/API/${userInput}`).then(response => response.json())
+
 // from data.js
 const tableData = data;
 
@@ -29,12 +32,23 @@ var filters = {};
 // 3. Use this function to update the filters. 
 function updateFilters() {
 
+  
   // 4a. Save the element that was changed as a variable.
   let changedElement = d3.select(this);
 
   // 4b. Save the value that was changed as a variable.
   let elementValue = changedElement.property("value");
   console.log(elementValue);
+  var tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`).then(response => response.json()).then(data => data)
+  console.log(tasteData)
+
+  var url = `http://127.0.0.1:5000/API/${elementValue}`
+  async function returnFetch(url) {
+    return await fetch(url).then(response => {return response.json()})
+  }
+
+  var tastePromise = returnFetch(url)
+  console.log(resolve(tastePromise))
 
   // 4c. Save the id of the filter that was changed as a variable.
   let filterId = changedElement.attr("id");

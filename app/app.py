@@ -77,5 +77,19 @@ def visuals():
     
     return render_template('visuals.html')
 
+@app.route('/API/<beerinfo>')
+def beerFilter(beerinfo):
+    beerinfo = str(beerinfo)
+    query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
+    result = awsDB(query)
+    # data = [beer for beer in result if beer[0][0][0] == beerinfo]
+    # print(result)
+    testlist = []
+    for x in result:
+        testlist.append(str(x))
+
+    return jsonify(testlist[0])
+
+
 if __name__ == '__main__':
     app.run(debug=True)
