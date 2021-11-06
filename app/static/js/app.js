@@ -44,7 +44,7 @@ function updateFilters() {
   
   var tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`)
     .then(response => response.json())
-    .then(json => console.log(json))
+    .then(response => console.log(response))
   console.log(tasteData)
 
   // var url = `http://127.0.0.1:5000/API/${elementValue}`
