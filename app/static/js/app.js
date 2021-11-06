@@ -38,21 +38,26 @@ function updateFilters() {
 
   // 4b. Save the value that was changed as a variable.
   let elementValue = changedElement.property("value");
-  console.log(elementValue);
-  var tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`).then(response => response.json()).then(data => data)
+  //console.log(elementValue);
+  
+  
+  
+  var tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`)
+    .then(response => response.json())
+    .then(json => console.log(json))
   console.log(tasteData)
 
-  var url = `http://127.0.0.1:5000/API/${elementValue}`
-  async function returnFetch(url) {
-    return await fetch(url).then(response => {return response.json()})
-  }
+  // var url = `http://127.0.0.1:5000/API/${elementValue}`
+  // async function returnFetch(url) {
+  //   return await fetch(url).then(response => {return response.json()})
+  // }
 
-  var tastePromise = returnFetch(url)
-  console.log(resolve(tastePromise))
+  // var tastePromise = returnFetch(url)
+  // console.log(tastePromise)
 
   // 4c. Save the id of the filter that was changed as a variable.
   let filterId = changedElement.attr("id");
-  console.log(filterId)
+  //console.log(filterId)
 
 
   // 5. If a filter value was entered then add that filterId and value
