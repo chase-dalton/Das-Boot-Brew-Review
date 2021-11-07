@@ -5,10 +5,22 @@ import numpy as np
 import os
 import psycopg2
 import json
+import sys
 
-sql_u = os.environ.get("sql_user", None)
-sql_pw = os.environ.get("sql_pw", None)
-sql_host = os.environ.get("sql_host", None)
+# sql credentials stored on heroku
+# sql_u = os.environ.get("sql_user", None)
+# sql_pw = os.environ.get("sql_pw", None)
+# sql_host = os.environ.get("sql_host", None)
+
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
+import config
+
+sql_u = config.sql_u
+sql_pw = config.sql_pw
+sql_host = config.sql_host
 
 def awsDB(sql_query):
     # connect to DB
@@ -46,16 +58,17 @@ def recipeRater(test_recipe):
 
 @app.route('/')
 def index():
-    # create query
-    sql_query = '''SELECT *
-                FROM styles;
-                '''
-    # run query
-    results = awsDB(sql_query)
-    # convert query results to json
-    jsonData = createJSON(results[0], results[1])
+    # # create query
+    # sql_query = '''SELECT *
+    #             FROM styles;
+    #             '''
+    # # run query
+    # results = awsDB(sql_query)
+    # # convert query results to json
+    # jsonData = createJSON(results[0], results[1])
 
-    return render_template('index.html', data=jsonData)
+    # return render_template('index.html', data=jsonData)
+    return render_template('index.html')
 
 @app.route('/testBeerRecipe')
 def testBeerRecipe():
@@ -68,6 +81,37 @@ def testBeerRecipe():
 def visuals():
     
     return render_template('visuals.html')
+
+@app.route('/API/<beerinfo>')
+def beerFilter(beerinfo):
+    beerinfo = str(beerinfo)
+    # query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
+
+    query = '''SELECT id::float AS id,
+               brewery_name,
+               beer_style,
+               brewery_id::float AS brewery_id,
+               review_overall::float AS review_overall,
+               review_aroma::float AS review_aroma,
+               review_appearance::float AS review_appearance,
+               review_palate::float AS review_palate,
+               review_taste::float AS review_taste,
+               beer_abv::float AS beer_abv,
+               beer_beerid,
+               beer_name,
+               review_count::float AS review_count
+               FROM reviews
+               WHERE review_taste = {beer};
+            '''.format(beer = beerinfo)
+
+    result = awsDB(query)
+    # data = [beer for beer in result if beer[0][0][0] == beerinfo]
+    # print(result)
+    testlist = []
+    for x in result:
+        testlist.append(str(x))
+
+    return jsonify(testlist[0])
 
 if __name__ == '__main__':
     app.run(debug=True)
