@@ -80,16 +80,36 @@ def visuals():
 @app.route('/API/<beerinfo>')
 def beerFilter(beerinfo):
     beerinfo = str(beerinfo)
-    query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
+    # query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
+
+    query = '''SELECT id::float AS id,
+               brewery_name,
+               beer_style,
+               brewery_id::float AS brewery_id,
+               review_overall::float AS review_overall,
+               review_aroma::float AS review_aroma,
+               review_appearance::float AS review_appearance,
+               review_palate::float AS review_palate,
+               review_taste::float AS review_taste,
+               beer_abv::float AS beer_abv,
+               beer_beerid,
+               beer_name,
+               review_count::float AS review_count
+               FROM reviews
+               WHERE review_taste = {beer}
+               LIMIT 5;
+            '''.format(beer = beerinfo)
+
     result = awsDB(query)
     # data = [beer for beer in result if beer[0][0][0] == beerinfo]
     # print(result)
-    testlist = []
-    for x in result:
-        testlist.append(str(x))
+    # testlist = []
+    # for x in result:
+    #     testlist.append(x)
 
-    return jsonify(testlist[0])
-
+    # return jsonify(testlist[0])
+    print(jsonify(result))
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
