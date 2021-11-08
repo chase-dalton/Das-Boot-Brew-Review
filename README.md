@@ -30,7 +30,7 @@
 - Step 4 **Create a Machine Learning Algorithm**
 - - We wanted to know if a beer is going to be good or not, so we created a machine learning algorithm that is 77% accurate.
 - Step 5 **Presentation**
-- - We don't want to just create a Tableau dashboard. We want to create a functioning website that people can go to, and input certain criteria to see if a beer will be good or not. We are using Horoku to allow anyone to access the website.
+- - We don't want to just create a Tableau dashboard. We want to create a functioning website that people can go to, and input certain criteria to see if a beer will be good or not. We are using Heroku to allow anyone to access the website.
 - Step 6 **The Pitch**
 - - We will be creating a google slides presentation, along with our website, to pitch to investors that we have a viable product.
 
@@ -39,7 +39,8 @@
 
 ## **Machine Learning**
 
-- We have done preliminary linear regression on beer review data to identify which attributes of a beer contribute most to the overall review score.  We also hope to gather beer recipes via a dataset or food/beer API and use that information to build a ML model to predict a beer's review score based on the variety of hops, yeast, etc. as well as the amounts of each individual ingredient.  That will allow us to propose an ideal "beer recipe" (perhaps per beer style) to a brewery.
+- We have done preliminary linear regression on beer review data to identify which attributes of a beer contribute most to the overall review score.  We discovered that a beer's overall review score is most closely correlated to taste score.  So our ML model focuses on predicting whether or not a beer's taste score will be above (a good beer) or below (a not good beer) 4.0.  We tried a variety of Machine Learning models, and found that a Gradient Boosting Classifier resulted in a prediction model with the highest level of accuracy.
+
 
 ## **Database**
 
