@@ -38,6 +38,8 @@ def awsDB(sql_query):
     # close sql connection
     cur.close()
     conn.close()
+    # print(f"These are the query results: {list(queryResults)}")
+    # print(f"These are the headers: {headers}")
     return queryResults, headers
 
 def createJSON(data, headers):
@@ -55,9 +57,19 @@ def recipeRater(test_recipe):
 @app.route('/')
 def index():
     # create query
-    sql_query = '''SELECT *
-                FROM styles;
-                '''
+    sql_query = '''SELECT 
+            beer_name as "Beer",
+            brewery_name as "Brewery",
+            beer_style as "Style",
+            CAST(ROUND(review_overall::numeric,2) AS FLOAT) as "Overall Rating",
+            CAST(ROUND(review_aroma::numeric,2) AS FLOAT) as "Aroma",
+            CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
+            CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
+            CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
+            beer_abv::float AS "ABV %"
+            FROM reviews
+            LIMIT 3;
+        '''
     # run query
     results = awsDB(sql_query)
     # convert query results to json
@@ -82,34 +94,56 @@ def beerFilter(beerinfo):
     beerinfo = str(beerinfo)
     # query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
 
-    query = '''SELECT id::float AS id,
-               brewery_name,
-               beer_style,
-               brewery_id::float AS brewery_id,
-               review_overall::float AS review_overall,
-               review_aroma::float AS review_aroma,
-               review_appearance::float AS review_appearance,
-               review_palate::float AS review_palate,
-               review_taste::float AS review_taste,
-               beer_abv::float AS beer_abv,
-               beer_beerid,
-               beer_name,
-               review_count::float AS review_count
+    query = '''SELECT 
+               beer_name as "Beer",
+               brewery_name as "Brewery",
+               beer_style as "Style",
+               CAST(ROUND(review_overall::numeric,2) AS FLOAT) as "Overall Rating",
+               CAST(ROUND(review_aroma::numeric,2) AS FLOAT) as "Aroma",
+               CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
+               CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
+               CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
+               beer_abv::float AS "ABV %"
                FROM reviews
                WHERE review_taste = {beer}
-               LIMIT 5;
+               LIMIT 3;
             '''.format(beer = beerinfo)
 
     result = awsDB(query)
-    # data = [beer for beer in result if beer[0][0][0] == beerinfo]
-    # print(result)
-    # testlist = []
-    # for x in result:
-    #     testlist.append(x)
+    resultJSON = createJSON(result[0],result[1])
 
-    # return jsonify(testlist[0])
-    print(jsonify(result))
-    return jsonify(result)
+    # with open('data.js','w') as f:
+    #     json.dump(resultJSON,f)
+
+    return resultJSON
+
+@app.route('/API/name/<beerinfo>')
+def beernameFilter(beerinfo):
+    beerinfo = str(beerinfo)
+    # query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
+
+    query = '''SELECT 
+               beer_name as "Beer",
+               brewery_name as "Brewery",
+               beer_style as "Style",
+               CAST(ROUND(review_overall::numeric,2) AS FLOAT) as "Overall Rating",
+               CAST(ROUND(review_aroma::numeric,2) AS FLOAT) as "Aroma",
+               CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
+               CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
+               CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
+               beer_abv::float AS "ABV %"
+               FROM reviews
+               WHERE beer_name = '{beer}'
+               LIMIT 3;
+            '''.format(beer = beerinfo)
+
+    result = awsDB(query)
+    resultJSON = createJSON(result[0],result[1])
+
+    # with open('data.js','w') as f:
+    #     json.dump(resultJSON,f)
+
+    return resultJSON
 
 if __name__ == '__main__':
     app.run(debug=True)

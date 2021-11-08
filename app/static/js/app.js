@@ -1,4 +1,5 @@
-var userInput = document.getElementById('review_taste').innerText
+// var tasteInput = document.getElementById('review_taste').innerText
+// console.log(tasteInput)
 // var beerData = fetch(`http://127.0.0.1:5000/API/${userInput}`).then(response => response.json())
 
 // from data.js
@@ -41,11 +42,18 @@ function updateFilters() {
   //console.log(elementValue);
   
   
-  
   var tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`)
     .then(response => response.json())
     .then(response => console.log(response))
   console.log(tasteData)
+
+  var beerData = fetch(`http://127.0.0.1:5000/API/name/${elementValue}`)
+    .then(response => response.json())
+    .then(response => console.log(response))
+  console.log(beerData)
+
+  let tasteInput = document.getElementById('review_taste').innerText
+  console.log(tasteInput)
 
   // var url = `http://127.0.0.1:5000/API/${elementValue}`
   // async function returnFetch(url) {

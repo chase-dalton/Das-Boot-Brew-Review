@@ -67,7 +67,7 @@
                           </li>
                           <li class = "list-group-item bg-dark">
                             <label for="shape">Enter Taste Rating</label><br>
-                              <input type="text" placeholder="4.5" id="review_taste" />
+                              <input type="text" placeholder="4.5" id="review_taste" onclick="userInput()" />
                           </li>
                           <li class = "list-group-item bg-dark">
                             <label for="shape">Enter ABV %</label><br>
@@ -82,13 +82,12 @@
                         <tr>
                             <th>Beer</th>
                             <th>Brewery</th>
-                            <!-- <th>State</th> -->
                             <th>Style</th>
-                            <!-- <th>Overall Rating</th> -->
+                            <th>Overall Rating</th>
                             <th>Taste</th>
-                            <!-- <th>Smell</th> -->
-                            <!-- <th>Mouthfeel</th>
-                            <th>Appearance</th> -->
+                            <th>Smell</th>
+                            <th>Mouthfeel</th>
+                            <th>Appearance</th>
                             <th>ABV %</th>
                         </tr>
                     </thead>
@@ -97,7 +96,10 @@
             </div>
         </div>
     </div>
-    {{data}}
+    <div>
+        {{data}}
+    </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
     <script src="../static/js/data.js"></script>
     <script src="../static/js/app.js"></script>
