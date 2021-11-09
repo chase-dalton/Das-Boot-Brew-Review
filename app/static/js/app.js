@@ -47,13 +47,14 @@ function updateFilters() {
   tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`)
   .then(response => response.json())
   .then(response => console.log(response))
+  console.log(tasteData)
 
 
 
   // var beerData = fetch(`http://127.0.0.1:5000/API/name/${elementValue}`)
   //   .then(response => response.json())
   //   .then(response => console.log(response))
-  // console.log(beerData)
+  // // console.log(beerData)
 
   // let tasteInput = document.getElementById('review_taste').innerText
   // console.log(tasteInput)

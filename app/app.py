@@ -36,28 +36,15 @@ def awsDB(sql_query):
     # get headers
     headers=list([x[0] for x in cur.description]) 
     queryResults = cur.fetchall()
-    # queryResults = pd.DataFrame(cur.fetchall(),columns=[headers])
-    # queryData = queryResults.to_dict('records')
-    # columnNames = queryResults.columns.values
     
 
     # close sql connection
     cur.close()
     conn.close()
-    print(f"queryResults: {queryResults}")
-    print("")
-    print("")
-    # print(f"queryData: {queryData}")
-    print("")
-    print("")
-    print(f"These are the headers: {headers}")
+
     return queryResults, headers
 
-# def createJSON(data, headers):
-#     jsonData=[]
-#     for rec in data:
-#         jsonData.append(dict(zip(headers,rec)))
-#     return json.dumps(jsonData)
+
 
 app = Flask(__name__)
 
@@ -79,14 +66,13 @@ def index():
             CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
             beer_abv::float AS "ABV %"
             FROM reviews
-            LIMIT 3;
+            LIMIT 5;
         '''
-    # run query
-    results = awsDB(sql_query)
-    # convert query results to json
-    jsonData = createJSON(results[0], results[1])
+    result = awsDB(sql_query)
+    data = result[0]
+    headers = result[1]
 
-    return render_template('index.html', data=jsonData)
+    return render_template('index.html',records = data, colnames = headers)
 
 @app.route('/testBeerRecipe')
 def testBeerRecipe():
@@ -103,9 +89,8 @@ def visuals():
 @app.route('/API/<beerinfo>')
 def beerFilter(beerinfo):
     beerinfo = str(beerinfo)
-    # query = """SELECT * FROM reviews WHERE review_taste = '{beer}'""".format(beer = beerinfo)
 
-    query = '''SELECT 
+    sql_query = '''SELECT 
                beer_name as "Beer",
                brewery_name as "Brewery",
                beer_style as "Style",
@@ -120,16 +105,9 @@ def beerFilter(beerinfo):
                LIMIT 3;
             '''.format(beer = beerinfo)
 
-    result = awsDB(query)
+    result = awsDB(sql_query)
     data = result[0]
     headers = result[1]
-
-    # print(f"Headers: {headers}")
-    # print("")
-    # print(f"data: {data}")
-
-    # with open('data.js','w') as f:
-    #     json.dump(resultJSON,f)
 
     return render_template('index.html',records = data, colnames = headers)
 

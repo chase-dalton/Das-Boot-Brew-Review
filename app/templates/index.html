@@ -20,15 +20,19 @@
             <div class="col-md-6 offset-md-3">
                 <h3>What Makes Beer Good?</h3>
             </div>
-            
+
             <div class="col-md-8 offset-md-2">
                 <p>
                     <br>
                     <br>
-                    What makes a beer enjoyable? Well for most people, it's if the beer tastes good or not. But from a brewing or sales perspective, that's not very helpful.
-                    "This beer is good!" is incredibly subjective. There are many components that go into a beer. How much alcohol is in it? What type is it? Where 
-                    was it brewed? What aroma notes are there? How bitter is it? What type of yeast was used? Does smell matter more than mouthfeel? Our analysis takes
-                    these factors and more into account. By analyzing various data sources, we were able to determine what factors best predict beer enjoyment.
+                    What makes a beer enjoyable? Well for most people, it's if the beer tastes good or not. But from a
+                    brewing or sales perspective, that's not very helpful.
+                    "This beer is good!" is incredibly subjective. There are many components that go into a beer. How
+                    much alcohol is in it? What type is it? Where
+                    was it brewed? What aroma notes are there? How bitter is it? What type of yeast was used? Does smell
+                    matter more than mouthfeel? Our analysis takes
+                    these factors and more into account. By analyzing various data sources, we were able to determine
+                    what factors best predict beer enjoyment.
                     <br>
                     <br>
                     <br>
@@ -48,73 +52,50 @@
                             <label for="date">Enter Beer</label><br>
                             <input type="text" placeholder="Bud Light" id="beer_name" />
                         </li>
-                        <li class = "list-group-item bg-dark">
+                        <li class="list-group-item bg-dark">
                             <label for="city">Enter Brewery</label><br>
-                              <input type="text" placeholder="Anheuser-Busch" id="brewery_name" />
-                          </li>
-                          </li>
-                          <li class = "list-group-item bg-dark">
+                            <input type="text" placeholder="Anheuser-Busch" id="brewery_name" />
+                        </li>
+                        </li>
+                        <li class="list-group-item bg-dark">
                             <label for="country">Enter Style</label><br>
-                              <input type="text" placeholder="IPA" id="beer_style" />
-                          </li>
-                          <li class = "list-group-item bg-dark">
+                            <input type="text" placeholder="IPA" id="beer_style" />
+                        </li>
+                        <li class="list-group-item bg-dark">
                             <label for="shape">Enter Taste Rating</label><br>
-                              <input type="text" placeholder="4.5" id="review_taste" />
-                          </li>
-                          <li class = "list-group-item bg-dark">
+                            <input type="text" placeholder="4.5" id="review_taste" />
+                        </li>
+                        <li class="list-group-item bg-dark">
                             <label for="shape">Enter ABV %</label><br>
-                              <input type="text" placeholder="5.5%" id="beer_abv" />
-                          </li><br>
+                            <input type="text" placeholder="5.5%" id="beer_abv" />
+                        </li><br>
                     </ul>
                 </form>
             </div>
-            <!-- <div class="col-md-9">
-                <table class="table table-striped">
+            <div class= "col-md-9">
+                <table class = "table table-striped">
                     <thead>
                         <tr>
-                            <th>Beer</th>
-                            <th>Brewery</th>
-                            <th>Style</th>
-                            <th>Overall Rating</th>
-                            <th>Taste</th>
-                            <th>Smell</th>
-                            <th>Mouthfeel</th>
-                            <th>Appearance</th>
-                            <th>ABV %</th>
+                            {% for col in colnames %}
+                            <th>{{ col }}</th>
+                            {% endfor %}
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            {% for col in colnames %}
+                            <td>{{ record[col] }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    <div> -->
-        {{data}}
-    </div>
-    <div id = "main">
-        <h1>DATA</h1>
-        <table border="1">
-            <thead>
-                <tr>
-                    {% for col in colnames %}
-                    <th>{{ col }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for record in records %}
-                <tr>
-                    {% for col in colnames %}
-                    <td>{{ record[col] }}</td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-    <!-- <script src="../static/js/data.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+        <!-- <script src="../static/js/data.js"></script>
     <script src="../static/js/app.js"></script> -->
 </body>
 
