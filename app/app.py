@@ -1,13 +1,12 @@
 # Import dependencies
 from flask import Flask, render_template, redirect, jsonify
-import pickle
-import numpy as np
+# import pickle
+# import numpy as np
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import json
-import sys
-import pandas as pd
+# import json
+# import sys
 
 
 # for local:
