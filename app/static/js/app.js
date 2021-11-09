@@ -4,6 +4,7 @@
 
 // from data.js
 const tableData = data;
+//console.log(tableData)
 
 // get table references
 var tbody = d3.select("tbody");
@@ -17,6 +18,7 @@ function buildTable(data) {
   data.forEach((dataRow) => {
     // Append a row to the table body
     let row = tbody.append("tr");
+    // console.log(dataRow)
 
     // Loop through each field in the dataRow and add
     // each value as a table cell (td)
@@ -42,23 +44,28 @@ function updateFilters() {
   //console.log(elementValue);
   
   
-  var tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`)
-    .then(response => response.json())
-    .then(response => console.log(response))
-  console.log(tasteData)
+  tasteData = fetch(`http://127.0.0.1:5000/API/${elementValue}`)
+  .then(response => response.json())
+  .then(response => console.log(response))
 
-  var beerData = fetch(`http://127.0.0.1:5000/API/name/${elementValue}`)
-    .then(response => response.json())
-    .then(response => console.log(response))
-  console.log(beerData)
 
-  let tasteInput = document.getElementById('review_taste').innerText
-  console.log(tasteInput)
+
+  // var beerData = fetch(`http://127.0.0.1:5000/API/name/${elementValue}`)
+  //   .then(response => response.json())
+  //   .then(response => console.log(response))
+  // console.log(beerData)
+
+  // let tasteInput = document.getElementById('review_taste').innerText
+  // console.log(tasteInput)
 
   // var url = `http://127.0.0.1:5000/API/${elementValue}`
-  // async function returnFetch(url) {
-  //   return await fetch(url).then(response => {return response.json()})
-  // }
+  // const beerTaste = fetch(url)
+  // .then((response) => response.json())
+  // .then((taste) => {
+  //   return taste;
+  // });
+
+  // console.log(beerTaste); 
 
   // var tastePromise = returnFetch(url)
   // console.log(tastePromise)

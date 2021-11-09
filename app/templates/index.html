@@ -12,11 +12,6 @@
 </head>
 
 <body class="bg-dark">
-    <!-- <div class="wrapper">
-        <nav class="navbar navbar-dark bg -dark navbar-expand-lg">
-            <a class="navbar-brand" href="index.html">UFO Sightings</a>
-        </nav>
-    </div> -->
     <div class="jumbotron">
         <h1 class="display-1">Tasty Beer Website</h1>
     </div>
@@ -57,9 +52,6 @@
                             <label for="city">Enter Brewery</label><br>
                               <input type="text" placeholder="Anheuser-Busch" id="brewery_name" />
                           </li>
-                          <!-- <li class = "list-group-item bg-dark">
-                            <label for="state">Enter State</label><br>
-                              <input type="text" placeholder="CO" id= "state" /> -->
                           </li>
                           <li class = "list-group-item bg-dark">
                             <label for="country">Enter Style</label><br>
@@ -76,7 +68,7 @@
                     </ul>
                 </form>
             </div>
-            <div class="col-md-9">
+            <!-- <div class="col-md-9">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -96,13 +88,34 @@
             </div>
         </div>
     </div>
-    <div>
+    <div> -->
         {{data}}
+    </div>
+    <div id = "main">
+        <h1>DATA</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for col in colnames %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    {% for col in colnames %}
+                    <td>{{ record[col] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-    <script src="../static/js/data.js"></script>
-    <script src="../static/js/app.js"></script>
+    <!-- <script src="../static/js/data.js"></script>
+    <script src="../static/js/app.js"></script> -->
 </body>
 
 </html>
