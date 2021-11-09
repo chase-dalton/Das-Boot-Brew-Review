@@ -9,15 +9,22 @@ import json
 import sys
 import pandas as pd
 
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
 
-import config
+# for local:
+# current = os.path.dirname(os.path.realpath(__file__))
+# parent = os.path.dirname(current)
+# sys.path.append(parent)
 
-sql_u = config.sql_u
-sql_pw = config.sql_pw
-sql_host = config.sql_host
+# import config
+
+# sql_u = config.sql_u
+# sql_pw = config.sql_pw
+# sql_host = config.sql_host
+
+# for heroku
+sql_u = os.environ.get("sql_user", None)
+sql_pw = os.environ.get("sql_pw", None)
+sql_host = os.environ.get("sql_host", None)
 
 
 def awsDB(sql_query):
