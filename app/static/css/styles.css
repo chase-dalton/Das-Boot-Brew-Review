@@ -1,22 +1,13 @@
 body {
 
-    color: #f7f7f7;
-  }
-  .jumbotron {
-    background-image: url("../images/beer.jpeg");
-    background-size: 100% 100%;
-    text-align: center;
-  }
+  color: #f7f7f7;
+}
+.jumbotron {
+  background-image: url("../images/beer.jpeg");
+  background-size: 100% 100%;
+  text-align: center;
+}
 h3 {
-    font-size: 50px;
-    color: #C6992f;
+  font-size: 50px;
 }
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 8rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-  color: #292f36;
-}
-
   
