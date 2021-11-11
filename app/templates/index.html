@@ -42,49 +42,59 @@
             </div>
         </div>
     </div>
+    <div>
+        <div class="container-fluid">
+            <div class="err_row">
+                <p style="text-align:center;font-size:20px;color:red;">{{err_message}}</p>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <form class="bg-dark">
+                <form method='POST' class="bg-dark">
                     <p>Filter Search</p>
                     <ul class="list-group bg-dark">
                         <li class="list-group-item bg-dark">
                             <label for="date">Enter Beer</label><br>
-                            <input type="text" placeholder="Bud Light" id="beer_name" />
+                            <input type="text" placeholder="Bud Light" name="beer_name" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="city">Enter Brewery</label><br>
-                            <input type="text" placeholder="Anheuser-Busch" id="brewery_name" />
-                        </li>
+                            <input type="text" placeholder="Anheuser-Busch" name="brewery_name" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="country">Enter Style</label><br>
-                            <input type="text" placeholder="IPA" id="beer_style" />
+                            <input type="text" placeholder="IPA" name="beer_style" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="shape">Enter Overall Rating</label><br>
-                            <input type="text" placeholder="1 - 5" id="review_overall" />
+                            <input type="text" placeholder="1 - 5" name="review_overall" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="shape">Enter Aroma Rating</label><br>
-                            <input type="text" placeholder="1 - 5" id="review_aroma" />
+                            <input type="text" placeholder="1 - 5" name="review_aroma" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="shape">Enter Appearance Rating</label><br>
-                            <input type="text" placeholder="1 - 5" id="review_appearance" />
+                            <input type="text" placeholder="1 - 5" name="review_appearance" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="shape">Enter Palate Rating</label><br>
-                            <input type="text" placeholder="1 - 5" id="review_palate" />
+                            <input type="text" placeholder="1 - 5" name="review_palate" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="shape">Enter Taste Rating</label><br>
-                            <input type="text" placeholder="1 - 5" id="review_taste" />
+                            <input type="text" placeholder="1 - 5" name="review_taste" />
                         </li>
                         <li class="list-group-item bg-dark">
                             <label for="shape">Enter ABV %</label><br>
-                            <input type="text" placeholder="5.5%" id="beer_abv" />
-                        </li><br>
+                            <input type="text" placeholder="5.5%" name="beer_abv" />
+                        </li>
+                        <li class="list-group-item bg-dark">
+                            <input type="submit" id="submit" />
+                        </li>
+                        <br>
                     </ul>
                 </form>
             </div>
