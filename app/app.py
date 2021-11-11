@@ -1,8 +1,9 @@
 # Import dependencies
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, request
 # import pickle
 # import numpy as np
 import os
+from flask.wrappers import Request
 import psycopg2
 from psycopg2.extras import RealDictCursor
 # import json
@@ -14,16 +15,16 @@ from psycopg2.extras import RealDictCursor
 # parent = os.path.dirname(current)
 # sys.path.append(parent)
 
-# import config
+import config
 
-# sql_u = config.sql_u
-# sql_pw = config.sql_pw
-# sql_host = config.sql_host
+sql_u = config.sql_u
+sql_pw = config.sql_pw
+sql_host = config.sql_host
 
 # for heroku
-sql_u = os.environ.get("sql_user", None)
-sql_pw = os.environ.get("sql_pw", None)
-sql_host = os.environ.get("sql_host", None)
+# sql_u = os.environ.get("sql_user", None)
+# sql_pw = os.environ.get("sql_pw", None)
+# sql_host = os.environ.get("sql_host", None)
 
 
 def awsDB(sql_query):
@@ -60,6 +61,7 @@ def recipeRater(test_recipe):
 
 @app.route('/')
 def index():
+    error_message = ''
     # create query
     sql_query = '''SELECT 
             beer_name as "Beer",
@@ -72,13 +74,13 @@ def index():
             CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
             beer_abv::float AS "ABV %"
             FROM reviews
-            LIMIT 5;
+            LIMIT 50;
         '''
     result = awsDB(sql_query)
     data = result[0]
     headers = result[1]
 
-    return render_template('index.html',records = data, colnames = headers)
+    return render_template('index.html',records = data, colnames = headers, err_message = error_message)
 
 @app.route('/testBeerRecipe')
 def testBeerRecipe():
@@ -92,11 +94,10 @@ def visuals():
     
     return render_template('visuals.html')
 
-@app.route('/API/<beerinfo>')
-def beerFilter(beerinfo):
-    beerinfo = str(beerinfo)
-
-    sql_query = '''SELECT 
+@app.route('/', methods=['POST'])
+def beerFilter():
+    error_message = ''
+    sql_select = '''SELECT 
                beer_name as "Beer",
                brewery_name as "Brewery",
                beer_style as "Style",
@@ -107,15 +108,47 @@ def beerFilter(beerinfo):
                CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
                beer_abv::float AS "ABV %"
                FROM reviews
-               WHERE review_taste = {beer}
-               LIMIT 3;
-            '''.format(beer = beerinfo)
+            '''
+    user_input = {'beer_name':request.form.get("beer_name"), 'brewery_name':request.form.get("brewery_name"), 'beer_style': request.form.get("beer_style"),
+    'review_overall':request.form.get("review_overall"), 'review_aroma':request.form.get("review_aroma"), 'review_appearance': request.form.get("review_appearance"),
+    'review_palate':request.form.get("review_palate"), 'review_taste':request.form.get("review_taste"), 'beer_abv':request.form.get("beer_abv")}
 
-    result = awsDB(sql_query)
+    sql_where = ''
+
+    for key, value in user_input.items():
+            if value != '':
+                if sql_where == '':
+                    sql_where = f"WHERE {key} = '{value}'"
+                else:
+                    sql_where = sql_where + f" AND {key} = '{value}'"
+
+    sql_query = sql_select + sql_where
+
+    print (sql_query)
+    try:
+        result = awsDB(sql_query)
+
+    except: 
+        error_message = 'An invalid parameter was entered.  Please try again.'
+        sql_query = '''SELECT 
+            beer_name as "Beer",
+            brewery_name as "Brewery",
+            beer_style as "Style",
+            CAST(ROUND(review_overall::numeric,2) AS FLOAT) as "Overall Rating",
+            CAST(ROUND(review_aroma::numeric,2) AS FLOAT) as "Aroma",
+            CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
+            CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
+            CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
+            beer_abv::float AS "ABV %"
+            FROM reviews
+            LIMIT 50;
+        '''
+        result = awsDB(sql_query)
+
     data = result[0]
     headers = result[1]
 
-    return render_template('index.html',records = data, colnames = headers)
+    return render_template('index.html',records = data, colnames = headers, err_message = error_message)
 
 if __name__ == '__main__':
     app.run(debug=True)
