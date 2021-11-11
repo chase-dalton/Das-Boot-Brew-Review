@@ -9,5 +9,14 @@ body {
   }
 h3 {
     font-size: 50px;
+    color: #C6992f;
 }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #292f36;
+}
+
   
