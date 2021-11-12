@@ -45,8 +45,8 @@ app = Flask(__name__)
 def goodBeerTest(test_recipe):
 
     print(f'!! START GOOD BEER TEST !!')
-    model_fn = './static/ml/final_ML_model.pkl'
-    scaler_fn = './static/ml/beer_scaler.pkl'
+    model_fn = 'final_ML_model.pkl'
+    scaler_fn = 'beer_scaler.pkl'
 
     try: 
         # load the model
