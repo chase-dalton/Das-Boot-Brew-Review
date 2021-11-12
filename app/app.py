@@ -73,7 +73,7 @@ def index():
             CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
             CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
             CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
-            beer_abv::float AS "ABV %"
+            CAST(ROUND(beer_abv::numeric,2) AS FLOAT) as "ABV %"
             FROM reviews
             LIMIT 50;
         '''
@@ -191,7 +191,7 @@ def beerFilter():
                CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
                CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
                CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
-               beer_abv::float AS "ABV %"
+               CAST(ROUND(beer_abv::numeric,2) AS FLOAT) as "ABV %"
                FROM reviews
             '''
     user_input = {'beer_name':request.form.get("beer_name"), 'brewery_name':request.form.get("brewery_name"), 'beer_style': request.form.get("beer_style"),
@@ -224,7 +224,7 @@ def beerFilter():
             CAST(ROUND(review_appearance::numeric,2) AS FLOAT) as "Appearance",
             CAST(ROUND(review_palate::numeric,2) AS FLOAT) as "Palate",
             CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
-            beer_abv::float AS "ABV %"
+            CAST(ROUND(beer_abv::numeric,2) AS FLOAT) as "ABV %"
             FROM reviews
             LIMIT 50;
         '''
