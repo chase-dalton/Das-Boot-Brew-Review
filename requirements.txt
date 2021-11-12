@@ -1,2 +1,3 @@
 Flask==1.1.2
 psycopg2==2.9.1
+pickleshare==0.7.5
