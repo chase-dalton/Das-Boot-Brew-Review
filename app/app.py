@@ -109,11 +109,17 @@ def testBeerRecipe():
     else:
         brew_meth = [0,0,0,1]
 
-    og = float(request.form.get("og"))
-    fg = float(request.form.get("fg"))
-    ibu = float(request.form.get("ibu"))
-    color = float(request.form.get("color"))
-    beer_abv = float(request.form.get("beer_abv"))
+    try:
+        og = float(request.form.get("og"))
+        fg = float(request.form.get("fg"))
+        ibu = float(request.form.get("ibu"))
+        color = float(request.form.get("color"))
+        beer_abv = float(request.form.get("beer_abv"))
+    except:
+        error_message = 'An invalid parameter was entered.  Please try again.'
+        result_message = ''
+        result_img = '/static/images/error_beer.png'
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
 
     # confirm values are within proper ranges
     if og < 1 or og > 1.183:
