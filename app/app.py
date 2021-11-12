@@ -45,15 +45,19 @@ app = Flask(__name__)
 def goodBeerTest(test_recipe):
 
     print(f'!! START GOOD BEER TEST !!')
-    try:
-        model_fn = '/static/ml/final_ML_model.pkl'
-        scaler_fn = '/static/ml/beer_scaler.pkl'
-    except Exception as e: print(e)
+    model_fn = '/static/ml/final_ML_model.pkl'
+    scaler_fn = '/static/ml/beer_scaler.pkl'
 
-    # load the model
-    loaded_model = pickle.load(open(model_fn, 'rb'))
-    # load Scaler
-    loaded_scaler = pickle.load(open(scaler_fn, 'rb'))
+    try: 
+        # load the model
+        print(f'!! TRY TO LOAD Final_ML_Model  !!')
+        loaded_model = pickle.load(open(model_fn, 'rb'))
+        print(f'!! LOADED Final_ML_Model  !!')
+        # load Scaler
+        print(f'!! TRY TO LOAD beer_scaler  !!')
+        loaded_scaler = pickle.load(open(scaler_fn, 'rb'))
+        print(f'!! LOADED beer_scaler  !!')
+    except Exception as e: print(e)
 
     print(f'!! TEST_RECIPE = {test_recipe} !!')
 
@@ -164,7 +168,7 @@ def testBeerRecipe():
     try:
         result = goodBeerTest(user_input)
     except:
-        print('!! ERROR RUNNING SQL QUERY !!')
+        print('!! ERROR RUNNING goodBeerTest FUNCTION !!')
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
