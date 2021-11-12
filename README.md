@@ -45,3 +45,7 @@
 ## **Database**
 
 - We have set up a database through AWS to house our cleaned datasets.
+
+## **Presentation**
+
+- Here is the link to our presentation: [Google Slides Presentation](https://docs.google.com/presentation/d/1bLgCaShy3VGehPZgpbyOCZr1AdiEvK3gFdSeHPxAY3Y/edit?usp=sharing)
