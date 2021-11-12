@@ -7,7 +7,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 # creditials foir local testing
-# import config
+import config
 # sql_u = config.sql_u
 # sql_pw = config.sql_pw
 # sql_host = config.sql_host
@@ -43,9 +43,13 @@ def awsDB(sql_query):
 app = Flask(__name__)
 
 def goodBeerTest(test_recipe):
-
+    # heroku path
     model_fn = 'app/static/ml/final_ML_model.pkl'
     scaler_fn = 'app/static/ml/beer_scaler.pkl'
+
+    # local path
+    # model_fn = 'static/ml/final_ML_model.pkl'
+    # scaler_fn = 'static/ml/beer_scaler.pkl'
 
     try: 
         # load the model
@@ -115,11 +119,11 @@ def testBeerRecipe():
         ibu = float(request.form.get("ibu"))
         color = float(request.form.get("color"))
         beer_abv = float(request.form.get("beer_abv"))
-    except:
-        error_message = 'An invalid parameter was entered.  Please try again.'
-        result_message = ''
-        result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+    except Exception as e: print(e)
+        # error_message = 'An invalid parameter was entered.  Please try again.'
+        # result_message = ''
+        # result_img = '/static/images/error_beer.png'
+        # return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
 
     # confirm values are within proper ranges
     if og < 1 or og > 1.183:
