@@ -44,22 +44,15 @@ app = Flask(__name__)
 
 def goodBeerTest(test_recipe):
 
-    print(f'!! START GOOD BEER TEST !!')
-    model_fn = 'final_ML_model.pkl'
-    scaler_fn = 'beer_scaler.pkl'
+    model_fn = 'app/static/ml/final_ML_model.pkl'
+    scaler_fn = 'app/static/ml/beer_scaler.pkl'
 
     try: 
         # load the model
-        print(f'!! TRY TO LOAD Final_ML_Model  !!')
-        loaded_model = pickle.load(open('app/final_ML_model.pkl', 'rb'))
-        print(f'!! LOADED Final_ML_Model  !!')
+        loaded_model = pickle.load(open(model_fn, 'rb'))
         # load Scaler
-        print(f'!! TRY TO LOAD beer_scaler  !!')
-        loaded_scaler = pickle.load(open('app/beer_scaler.pkl', 'rb'))
-        print(f'!! LOADED beer_scaler  !!')
+        loaded_scaler = pickle.load(open(scaler_fn, 'rb'))
     except Exception as e: print(e)
-
-    print(f'!! TEST_RECIPE = {test_recipe} !!')
 
     # Scale User input
     scaler = loaded_scaler
@@ -67,7 +60,6 @@ def goodBeerTest(test_recipe):
 
     # make prediction on user input
     predict = loaded_model.predict(X_test_scaled)
-    print(f'!! PREDICT = {predict} !!')
     return predict
 
 @app.route('/')
@@ -164,11 +156,9 @@ def testBeerRecipe():
     # create a 2D list
     user_input = []
     user_input.append(U_input)
-    print(f'!! USER_INPUT: {user_input} !!')
     try:
         result = goodBeerTest(user_input)
     except:
-        print('!! ERROR RUNNING goodBeerTest FUNCTION !!')
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
