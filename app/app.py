@@ -1,30 +1,21 @@
 # Import dependencies
 from flask import Flask, render_template, redirect, request
 import pickle
-# import numpy as np
 import os
 from flask.wrappers import Request
 import psycopg2
 from psycopg2.extras import RealDictCursor
-# import json
-# import sys
 
-
-# for local:
-# current = os.path.dirname(os.path.realpath(__file__))
-# parent = os.path.dirname(current)
-# sys.path.append(parent)
-
-import config
-
-sql_u = config.sql_u
-sql_pw = config.sql_pw
-sql_host = config.sql_host
+# creditials foir local testing
+# import config
+# sql_u = config.sql_u
+# sql_pw = config.sql_pw
+# sql_host = config.sql_host
 
 # for heroku
-# sql_u = os.environ.get("sql_user", None)
-# sql_pw = os.environ.get("sql_pw", None)
-# sql_host = os.environ.get("sql_host", None)
+sql_u = os.environ.get("sql_user", None)
+sql_pw = os.environ.get("sql_pw", None)
+sql_host = os.environ.get("sql_host", None)
 
 def awsDB(sql_query):
     # connect to DB
