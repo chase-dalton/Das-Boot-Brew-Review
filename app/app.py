@@ -7,15 +7,15 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 # creditials foir local testing
-# import config
-# sql_u = config.sql_u
-# sql_pw = config.sql_pw
-# sql_host = config.sql_host
+import config
+sql_u = config.sql_u
+sql_pw = config.sql_pw
+sql_host = config.sql_host
 
 # for heroku
-sql_u = os.environ.get("sql_user", None)
-sql_pw = os.environ.get("sql_pw", None)
-sql_host = os.environ.get("sql_host", None)
+# sql_u = os.environ.get("sql_user", None)
+# sql_pw = os.environ.get("sql_pw", None)
+# sql_host = os.environ.get("sql_host", None)
 
 def awsDB(sql_query):
     # connect to DB
@@ -51,11 +51,11 @@ def goodBeerTest(test_recipe):
     try: 
         # load the model
         print(f'!! TRY TO LOAD Final_ML_Model  !!')
-        loaded_model = pickle.load(open('final_ML_model.pkl', 'rb'))
+        loaded_model = pickle.load(open('./final_ML_model.pkl', 'rb'))
         print(f'!! LOADED Final_ML_Model  !!')
         # load Scaler
         print(f'!! TRY TO LOAD beer_scaler  !!')
-        loaded_scaler = pickle.load(open('beer_scaler.pkl', 'rb'))
+        loaded_scaler = pickle.load(open('./beer_scaler.pkl', 'rb'))
         print(f'!! LOADED beer_scaler  !!')
     except Exception as e: print(e)
 
@@ -220,7 +220,6 @@ def beerFilter():
 
     sql_query = sql_select + sql_where
 
-    print (sql_query)
     try:
         result = awsDB(sql_query)
 
