@@ -43,8 +43,11 @@ def awsDB(sql_query):
 app = Flask(__name__)
 
 def goodBeerTest(test_recipe):
-    model_fn = './static/ml/final_ML_model.pkl'
-    scaler_fn = './static/ml/beer_scaler.pkl'
+
+    print(f'!! START GOOD BEER TEST !!')
+    
+    model_fn = '/static/ml/final_ML_model.pkl'
+    scaler_fn = '/static/ml/beer_scaler.pkl'
 
     # load the model
     loaded_model = pickle.load(open(model_fn, 'rb'))
