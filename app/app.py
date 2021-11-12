@@ -51,11 +51,11 @@ def goodBeerTest(test_recipe):
     try: 
         # load the model
         print(f'!! TRY TO LOAD Final_ML_Model  !!')
-        loaded_model = pickle.load(open(model_fn, 'rb'))
+        loaded_model = pickle.load(open('final_ML_model.pkl', 'rb'))
         print(f'!! LOADED Final_ML_Model  !!')
         # load Scaler
         print(f'!! TRY TO LOAD beer_scaler  !!')
-        loaded_scaler = pickle.load(open(scaler_fn, 'rb'))
+        loaded_scaler = pickle.load(open('beer_scaler.pkl', 'rb'))
         print(f'!! LOADED beer_scaler  !!')
     except Exception as e: print(e)
 
