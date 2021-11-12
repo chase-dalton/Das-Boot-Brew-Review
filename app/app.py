@@ -7,15 +7,15 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 # creditials foir local testing
-# import config
-# sql_u = config.sql_u
-# sql_pw = config.sql_pw
-# sql_host = config.sql_host
+import config
+sql_u = config.sql_u
+sql_pw = config.sql_pw
+sql_host = config.sql_host
 
 # for heroku
-sql_u = os.environ.get("sql_user", None)
-sql_pw = os.environ.get("sql_pw", None)
-sql_host = os.environ.get("sql_host", None)
+# sql_u = os.environ.get("sql_user", None)
+# sql_pw = os.environ.get("sql_pw", None)
+# sql_host = os.environ.get("sql_host", None)
 
 def awsDB(sql_query):
     # connect to DB
@@ -51,13 +51,15 @@ def goodBeerTest(test_recipe):
     # load Scaler
     loaded_scaler = pickle.load(open(scaler_fn, 'rb'))
 
+    print(f'!! TEST_RECIPE = {test_recipe} !!')
+
     # Scale User input
     scaler = loaded_scaler
     X_test_scaled = scaler.transform(test_recipe)
 
     # make prediction on user input
     predict = loaded_model.predict(X_test_scaled)
-
+    print(f'!! PREDICT = {predict} !!')
     return predict
 
 @app.route('/')
@@ -75,7 +77,7 @@ def index():
             CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
             CAST(ROUND(beer_abv::numeric,2) AS FLOAT) as "ABV %"
             FROM reviews
-            LIMIT 50;
+            LIMIT 20;
         '''
     result = awsDB(sql_query)
     data = result[0]
@@ -85,7 +87,7 @@ def index():
 
 @app.route('/testBeerRecipe')
 def testBeerRecipeStart():
-    result_img = ''
+    result_img = '/static/images/test_beer.png'
     error_message = ''
     result_message = ''
     return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
@@ -93,7 +95,7 @@ def testBeerRecipeStart():
 @app.route('/testBeerRecipe', methods=['POST'])
 def testBeerRecipe():
     error_message = ''
-    result_img = ''
+    result_img = '/static/images/test_beer.png'
     result_message = ''
 
     # convert combobox selection to list
@@ -154,10 +156,11 @@ def testBeerRecipe():
     # create a 2D list
     user_input = []
     user_input.append(U_input)
-
+    print(f'!! USER_INPUT: {user_input} !!')
     try:
         result = goodBeerTest(user_input)
     except:
+        print('!! ERROR RUNNING SQL QUERY !!')
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
@@ -226,7 +229,7 @@ def beerFilter():
             CAST(ROUND(review_taste::numeric,2) AS FLOAT) as "Taste",
             CAST(ROUND(beer_abv::numeric,2) AS FLOAT) as "ABV %"
             FROM reviews
-            LIMIT 50;
+            LIMIT 20;
         '''
         result = awsDB(sql_query)
 
