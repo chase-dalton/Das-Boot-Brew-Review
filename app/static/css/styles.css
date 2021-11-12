@@ -1,13 +1,51 @@
 body {
+    color: #f7f7f7;
+}
 
-  color: #f7f7f7;
-}
 .jumbotron {
-  background-image: url("../images/beer.jpeg");
-  background-size: 100% 100%;
-  text-align: center;
+    background-image: url("../images/beer.jpeg");
+    background-size: 100% 100%;
+    text-align: center;
 }
+
 h3 {
   font-size: 50px;
 }
   
+/* Add a black background color to the top navigation */
+.topnav {
+   background-color: #292F36;
+    text-align: center;
+    width: 100%;
+}
+    
+/* Style the links inside the navigation bar */
+.topnav a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 150px;
+    text-decoration: none;
+    font-size: 17px;
+    display: inline-block;
+    margin: 0 auto;
+}
+  
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #C6992F;
+    color: black;
+}
+  
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #CC5200;
+    color: white;
+}
+
+/* Centered section inside the top navigation */
+.topnav-centered a {
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 auto;
+  }
