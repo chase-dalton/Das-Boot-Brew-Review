@@ -7,7 +7,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 # creditials foir local testing
-import config
+# import config
 # sql_u = config.sql_u
 # sql_pw = config.sql_pw
 # sql_host = config.sql_host
