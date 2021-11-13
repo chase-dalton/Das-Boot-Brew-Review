@@ -2,7 +2,7 @@
 
 ## **Topic**
   - Our topic is about beer! We want to know what factors contribute to the best glass of beer.
-  - Check out our heroku website: [heroku](https://das-boot-brew-review-app.herokuapp.com/)
+  - Check out our heroku website: [Das Boot](https://das-boot-brew-review-app.herokuapp.com/)
 
 ## **Reason**
   - We chose our topic due to everyone loving beer!
