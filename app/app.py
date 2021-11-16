@@ -1,4 +1,5 @@
 # Import dependencies
+import re
 from flask import Flask, render_template, redirect, request
 import pickle
 import os
@@ -7,15 +8,15 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 # creditials foir local testing
-# import config
-# sql_u = config.sql_u
-# sql_pw = config.sql_pw
-# sql_host = config.sql_host
+import config
+sql_u = config.sql_u
+sql_pw = config.sql_pw
+sql_host = config.sql_host
 
 # for heroku
-sql_u = os.environ.get("sql_user", None)
-sql_pw = os.environ.get("sql_pw", None)
-sql_host = os.environ.get("sql_host", None)
+# sql_u = os.environ.get("sql_user", None)
+# sql_pw = os.environ.get("sql_pw", None)
+# sql_host = os.environ.get("sql_host", None)
 
 def awsDB(sql_query):
     # connect to DB
@@ -44,12 +45,12 @@ app = Flask(__name__)
 
 def goodBeerTest(test_recipe):
     # heroku path
-    model_fn = 'app/static/ml/final_ML_model.pkl'
-    scaler_fn = 'app/static/ml/beer_scaler.pkl'
+    # model_fn = 'app/static/ml/final_ML_model.pkl'
+    # scaler_fn = 'app/static/ml/beer_scaler.pkl'
 
     # local path
-    # model_fn = 'static/ml/final_ML_model.pkl'
-    # scaler_fn = 'static/ml/beer_scaler.pkl'
+    model_fn = 'static/ml/final_ML_model.pkl'
+    scaler_fn = 'static/ml/beer_scaler.pkl'
 
     try: 
         # load the model
@@ -101,17 +102,22 @@ def testBeerRecipe():
     error_message = ''
     result_img = '/static/images/test_beer.png'
     result_message = ''
+    recipe_msg = ''
 
     # convert combobox selection to list
     brew_meth = []
     if request.form.get("brew_method") == 'all_grain':
         brew_meth = [1,0,0,0]
+        bm_msg = 'All Grain' 
     elif request.form.get("brew_method") == 'biab':
         brew_meth = [0,1,0,0]
+        bm_msg = 'Brew in a Bag'
     elif request.form.get("brew_method") == 'partial_mash':
         brew_meth = [0,0,1,0]
+        bm_msg = 'Partial Mash'
     else:
         brew_meth = [0,0,0,1]
+        bm_msg = 'Extract Brewing'
 
     try:
         og = float(request.form.get("og"))
@@ -120,41 +126,38 @@ def testBeerRecipe():
         color = float(request.form.get("color"))
         beer_abv = float(request.form.get("beer_abv"))
     except Exception as e: print(e)
-        # error_message = 'An invalid parameter was entered.  Please try again.'
-        # result_message = ''
-        # result_img = '/static/images/error_beer.png'
-        # return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+
 
     # confirm values are within proper ranges
     if og < 1 or og > 1.183:
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
     if fg < 0.998 or fg > 1.039:
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
     if ibu < 0 or ibu > 124.15:
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
     if color < 0 or color > 50:
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
     if beer_abv < 0.5 or beer_abv > 29:
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
     # create user_input list to send to ML
     U_input = [og, fg, ibu, color, beer_abv]
@@ -172,18 +175,20 @@ def testBeerRecipe():
         error_message = 'An invalid parameter was entered.  Please try again.'
         result_message = ''
         result_img = '/static/images/error_beer.png'
-        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+        return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
     if result == 0:
         error_message = ''
         result_message = 'Bad Beer!'
         result_img = '/static/images/bad_beer.png'
+        recipe_msg = f'Original Gravity: {og} | Final Gravity: {fg} | International Bitterness Units: {ibu} | Color Rating: {color} | Alcohol by Volume: {beer_abv} | Brew Method: {bm_msg}'
     else:
         error_message = ''
         result_img = '/static/images/good_beer.png'
         result_message = 'Good Beer!'
+        recipe_msg = f'Original Gravity: {og} | Final Gravity: {fg} | International Bitterness Units: {ibu} | Color Rating: {color} | Alcohol by Volume: {beer_abv} | Brew Method: {bm_msg}'
         
-    return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message)
+    return render_template('testYourBeer.html', result_image = result_img, err_message = error_message, rst_message = result_message, recipe_message = recipe_msg)
 
 @app.route('/visuals')
 def visuals():
