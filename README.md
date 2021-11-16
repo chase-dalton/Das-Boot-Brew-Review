@@ -40,7 +40,7 @@
 
 ## **Machine Learning**
 
-- We have done preliminary linear regression on beer review data to identify which attributes of a beer contribute most to the overall review score.  We discovered that a beer's overall review score is most closely correlated to taste score.  So our ML model focuses on predicting whether or not a beer's taste score will be above (a good beer) or below (a not good beer) 4.0.  We tried a variety of Machine Learning models, and found that a Gradient Boosting Classifier resulted in a prediction model with the highest level of accuracy.
+- We have done preliminary linear regression on beer review data to identify which attributes of a beer contribute most to the overall review score.  We discovered that a beer's overall review score is most closely correlated to taste score.  So our ML model focuses on predicting whether or not a beer's taste score will be above (a good beer) or below (a not good beer) 4.0.  We tried a variety of Machine Learning models, and found that a Decision Tree with Gradient Boosting Classifier resulted in a prediction model with the highest level of accuracy.
 
 
 ## **Database**
